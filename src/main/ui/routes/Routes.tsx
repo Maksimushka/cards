@@ -4,6 +4,7 @@ import Profile from '../../../features/profile/Profile';
 import RecoveryPass from '../../../features/recoveryPass/RecoveryPass';
 import Error404 from '../error-404/Error404';
 import TestPage from '../../../components/TestPage';
+import Login from '../../../features/login/Login';
 
 export const PATH = {
     PROFILE: "/profile",
@@ -20,7 +21,7 @@ function Routes() {
                 <Route path={"/"} exact render={() => <Redirect to={PATH.PROFILE}/>}/>
 
                 <Route path={PATH.PROFILE} render={() => <Profile />}/>
-                <Route path={PATH.LOGIN} render={() => <Profile />}/>
+                <Route path={PATH.LOGIN} render={() => <Login />}/>
                 <Route path={PATH.SIGNUP} render={() => <Profile />}/>
                 <Route path={PATH.RECOVERY} render={() => <RecoveryPass />}/>
                 <Route path={PATH.TESTPAGE} render={() => <TestPage />}/>
