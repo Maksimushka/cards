@@ -8,7 +8,7 @@ const instanceHeroku = axios.create({
     baseURL: 'https://neko-back.herokuapp.com/2.0',
 })
 
-type AuthObjType = {
+export type AuthObjType = {
     email: string
     password: string
     rememberMe?: boolean

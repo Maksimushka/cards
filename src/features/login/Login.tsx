@@ -6,8 +6,12 @@ import {Link, Redirect} from 'react-router-dom';
 import {PATH} from '../../main/ui/routes/Routes';
 import {authAPI} from '../../main/dal/API';
 import Spinner from '../../components/spinner/Spinner';
+import {useDispatch} from 'react-redux';
+import {login} from '../../main/bll/auth-actions';
 
 const Login: FC<any> = () => {
+  const dispatch = useDispatch()
+
   const [email, setEmail] = useState<string>('nya-admin@nya.nya')
   const [password, setPassword] = useState<string>('1qazxcvBG')
   const [validEmail, setValidEmail] = useState<boolean>(false)
@@ -44,7 +48,7 @@ const Login: FC<any> = () => {
     if (!validEmail && !validPassword) {
       // setIsLoading(true)
       // диспатчим санку с запросом
-      authAPI.login({email: email, password: password, rememberMe: checkedInput}).then(r => console.log(r))
+      dispatch(login({email: email, password: password, rememberMe: checkedInput}))
       //если ты авторизован то редирект на главную страницу
       setIsAuth(true)
     }
