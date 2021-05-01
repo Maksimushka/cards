@@ -1,15 +1,24 @@
-import React, {ChangeEvent, FC, useEffect, useState} from 'react';
+import React, {ChangeEvent, FC, useState} from 'react';
 import './Login.scss'
 import Input from '../../components/input/Input';
 import Checkbox from '../../components/checkbox/Checkbox';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import {PATH} from '../../main/ui/routes/Routes';
+import {authAPI} from '../../main/dal/API';
+import Spinner from '../../components/spinner/Spinner';
 
 const Login: FC<any> = () => {
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
+  const [email, setEmail] = useState<string>('nya-admin@nya.nya')
+  const [password, setPassword] = useState<string>('1qazxcvBG')
   const [validEmail, setValidEmail] = useState<boolean>(false)
   const [validPassword, setValidPassword] = useState<boolean>(false)
+  const [checkedInput, setCheckedInput] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isAuth, setIsAuth] = useState<boolean>(false)
+
+  const setRememberMe = (checked: boolean) => {
+    setCheckedInput(checked)
+  }
 
 
   const changeEmail = ({target}: ChangeEvent<HTMLInputElement>) => {
@@ -29,23 +38,38 @@ const Login: FC<any> = () => {
     if (password.length < 6) {
       setValidPassword(true)
     }
+    if (validEmail && validPassword) {
+      // setIsLoading(true)
+      // диспатчим санку с запросом
+      authAPI.login({email: email, password: password, rememberMe: checkedInput}).then(r => console.log(r))
+      //если ты авторизован то редирект на главную страницу
+      setIsAuth(true)
+    }
   }
-
+  if (isAuth) {
+    // setIsLoading(true)
+    return <Redirect to={PATH.PROFILE}/>
+  }
   return (
-      <section className='login'>
-        <div className='login__container'>
-        <div>
-          <h2>Login</h2>
-          Email
-          <Input type={'email'} value={email} onChange={changeEmail}/>
-          Password
-          <Input type={'password'} value={password} onChange={changePassword}/>
-        </div>
-        {validEmail && <p className="error">Enter valid email</p>}
-        {validPassword && <p className="error">Enter longer password more then 6 symbols Now: {password.length}</p>}
-        <Link to={PATH.SIGNUP}>Sign Up (Registration)</Link>
-        <Checkbox>Remember me!</Checkbox>
-        <button onClick={onSubmit}>Submit</button>
+      <section className="login">
+        <div className="login__container">
+          {isLoading ? (<Spinner/>)
+              : (<>
+                    <div>
+                      <h2>Login</h2>
+                      Email
+                      <Input type={'email'} value={email} onChange={changeEmail}/>
+                      Password
+                      <Input type={'password'} value={password} onChange={changePassword}/>
+                    </div>
+                    <Link to={PATH.SIGNUP}>Sign Up (Registration)</Link>
+                    <Checkbox onChangeChecked={setRememberMe}>Remember me!</Checkbox>
+                    <button onClick={onSubmit}>Submit</button>
+                  </>
+              )}
+          {validEmail && <p className="error">Enter valid email</p>}
+          {validPassword && <p className="error">Enter longer password more then 6 symbols Now: {password.length}</p>}
+
         </div>
       </section>
   )
