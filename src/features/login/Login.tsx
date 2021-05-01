@@ -30,7 +30,7 @@ const Login: FC<any> = () => {
     setValidPassword(false)
     setPassword(e.target.value)
   }
-  const onSubmit = () => {
+  const setIsValid = () => {
     const pattern = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g);
     if (!pattern.test(email)) {
       setValidEmail(true)
@@ -38,7 +38,10 @@ const Login: FC<any> = () => {
     if (password.length < 6) {
       setValidPassword(true)
     }
-    if (validEmail && validPassword) {
+  }
+
+  const onSubmit = () => {
+    if (!validEmail && !validPassword) {
       // setIsLoading(true)
       // диспатчим санку с запросом
       authAPI.login({email: email, password: password, rememberMe: checkedInput}).then(r => console.log(r))
@@ -64,7 +67,7 @@ const Login: FC<any> = () => {
                     </div>
                     <Link to={PATH.SIGNUP}>Sign Up (Registration)</Link>
                     <Checkbox onChangeChecked={setRememberMe}>Remember me!</Checkbox>
-                    <button onClick={onSubmit}>Submit</button>
+                    <button onClick={onSubmit} onMouseDown={setIsValid}>Submit</button>
                   </>
               )}
           {validEmail && <p className="error">Enter valid email</p>}
