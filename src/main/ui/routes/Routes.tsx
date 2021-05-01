@@ -7,6 +7,7 @@ import TestPage from '../../../components/TestPage';
 import Login from '../../../features/login/Login';
 import SignUp from "../../../features/signUp/SignUp";
 
+
 export const PATH = {
     PROFILE: "/profile",
     LOGIN: '/login',
