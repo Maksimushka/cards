@@ -10,12 +10,6 @@ const Login: FC<any> = () => {
   const [password, setPassword] = useState<string>('')
   const [validEmail, setValidEmail] = useState<boolean>(false)
   const [validPassword, setValidPassword] = useState<boolean>(false)
-useEffect(()=>{
-
-})
-
-
-
 
 
   const changeEmail = ({target}: ChangeEvent<HTMLInputElement>) => {
@@ -49,7 +43,7 @@ useEffect(()=>{
         </div>
         {validEmail && <p className="error">Enter valid email</p>}
         {validPassword && <p className="error">Enter longer password more then 6 symbols Now: {password.length}</p>}
-        <Link to={PATH.SIGNUP}>Sign Up</Link>
+        <Link to={PATH.SIGNUP}>Sign Up (Registration)</Link>
         <Checkbox>Remember me!</Checkbox>
         <button onClick={onSubmit}>Submit</button>
         </div>
