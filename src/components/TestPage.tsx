@@ -10,7 +10,7 @@ const TestPage = () => {
             <h1>Test component page</h1>
             <div>
                 <h3>Button</h3>
-                <Button />
+                <Button>Click</Button>
             </div>
             <div>
                 <h3>Input</h3>
