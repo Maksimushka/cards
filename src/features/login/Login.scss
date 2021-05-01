@@ -1,79 +1,16 @@
-.container {
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-  background: url('image/foster-lake-thumbnail.jpg') no-repeat center center fixed;
-  background-size: cover;
+.login{
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+ &__container {
+   display: flex;
+   flex-direction: column;
 }
-
-.box {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  box-sizing: border-box;
-  transform: translate(-50%, -50%);
-  width: 40rem;
-  padding: 4rem;
-  background: rgba(0, 0, 0, .8);
-  box-shadow: 0 15px 25px rgba(0, 0, 0, .15);
-  border-radius: 10px;
-
-  h2 {
-    margin: 0 0 30px;
-    padding: 0;
-    color: white;
-    text-align: center;
-  }
-
-  .inputBox {
-    position: relative;
-
-  }
-
-  input[type="submit"] {
-    border: none;
-    outline: none;
-    color: white;
-    background: #03a9f4;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-}
-
-.box .inputBox {
-  input {
-    width: 100%;
-    padding: 10px 0;
-    margin-bottom: 30px;
-    font-size: 1rem;
-    color: white;
-    letter-spacing: 1px;
-    border: none;
-    border-bottom: 1px solid #fff;
-    outline: none;
-    background: transparent;
-  }
-
-  label {
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 10px 0;
-    margin-bottom: 30px;
-    font-size: 1.2rem;
-    color: white;
-    pointer-events: none;
-    transition: .5s;
-  }
 
 }
 
-.box .inputBox input:focus ~ label,
-.box .inputBox input:valid ~ label {
-  top: -1.2rem;
-  left: 0;
-  color: #03a9f4;
-  font-size: 1rem;
+.error {
+  color: red;
 }

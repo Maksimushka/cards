@@ -1,11 +1,21 @@
-import React, {ChangeEvent, FC, useState} from 'react';
+import React, {ChangeEvent, FC, useEffect, useState} from 'react';
 import './Login.scss'
+import Input from '../../components/input/Input';
+import Checkbox from '../../components/checkbox/Checkbox';
+import {Link} from 'react-router-dom';
+import {PATH} from '../../main/ui/routes/Routes';
 
 const Login: FC<any> = () => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [validEmail, setValidEmail] = useState<boolean>(false)
   const [validPassword, setValidPassword] = useState<boolean>(false)
+useEffect(()=>{
+
+})
+
+
+
 
 
   const changeEmail = ({target}: ChangeEvent<HTMLInputElement>) => {
@@ -28,24 +38,22 @@ const Login: FC<any> = () => {
   }
 
   return (
-      <div className="container">
-        <div className="box">
+      <section className='login'>
+        <div className='login__container'>
+        <div>
           <h2>Login</h2>
-          <form action="">
-            <div className="inputBox">
-              <input type="text" required={true} value={email} onChange={changeEmail}/>
-              <label>Email</label>
-            </div>
-            <div className="inputBox">
-              <input type="password" required={true} value={password} onChange={changePassword}/>
-              <label>Password</label>
-            </div>
-            {validEmail && <p className="error">Enter valid email</p>}
-            {validPassword && <p className="error">Enter longer password more then 6 symbols</p>}
-            <input type="submit" value="Submit" onClick={onSubmit}/>
-          </form>
+          Email
+          <Input type={'email'} value={email} onChange={changeEmail}/>
+          Password
+          <Input type={'password'} value={password} onChange={changePassword}/>
         </div>
-      </div>
+        {validEmail && <p className="error">Enter valid email</p>}
+        {validPassword && <p className="error">Enter longer password more then 6 symbols Now: {password.length}</p>}
+        <Link to={PATH.SIGNUP}>Sign Up</Link>
+        <Checkbox>Remember me!</Checkbox>
+        <button onClick={onSubmit}>Submit</button>
+        </div>
+      </section>
   )
 };
 
