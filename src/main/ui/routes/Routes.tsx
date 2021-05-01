@@ -5,6 +5,8 @@ import RecoveryPass from '../../../features/recoveryPass/RecoveryPass';
 import Error404 from '../error-404/Error404';
 import TestPage from '../../../components/TestPage';
 import Login from '../../../features/login/Login';
+import SignUp from "../../../features/signUp/SignUp";
+
 
 export const PATH = {
     PROFILE: "/profile",
@@ -22,7 +24,7 @@ function Routes() {
 
                 <Route path={PATH.PROFILE} render={() => <Profile />}/>
                 <Route path={PATH.LOGIN} render={() => <Login />}/>
-                <Route path={PATH.SIGNUP} render={() => <Profile />}/>
+                <Route path={PATH.SIGNUP} render={() => <SignUp />}/>
                 <Route path={PATH.RECOVERY} render={() => <RecoveryPass />}/>
                 <Route path={PATH.TESTPAGE} render={() => <TestPage />}/>
 
