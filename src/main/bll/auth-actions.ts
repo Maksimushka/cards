@@ -8,11 +8,13 @@ export enum AuthEnum {
     LOGOUT = 'AUTH/LOGOUT',
     UPDATE_USER = 'AUTH/UPDATE_USER',
     IS_LOADING = 'AUTH/IS_LOADING',
+    IS_AUTH = 'AUTH/IS_AUTH',
 }
 export type AuthActionsTypes = ReturnType<typeof loginAC>
     | ReturnType<typeof logOutAC>
     | ReturnType<typeof updateUserAC>
     | ReturnType<typeof loadingSpinner>
+    | ReturnType<typeof authentication>
 
 // ACTION CREATORS
 export const loginAC = (value: { name: string, _id: string, avatar?: string }) => ({
@@ -22,6 +24,7 @@ export const loginAC = (value: { name: string, _id: string, avatar?: string }) =
 export const logOutAC = () => ({ type: AuthEnum.LOGOUT } as const)
 export const updateUserAC = (value: {name?: string, avatar?: string}) => ({ type: AuthEnum.UPDATE_USER, value } as const)
 export const loadingSpinner = (value:boolean) => ({ type: AuthEnum.IS_LOADING,value} as const)
+export const authentication = (value:boolean) => ({ type: AuthEnum.IS_AUTH,value} as const)
 
 // THUNK CREATORS
 export const setLogOut = ():ThunkType =>
@@ -42,7 +45,8 @@ export const login = (data:AuthObjType):ThunkType =>
   try{
     dispatch(loadingSpinner(true))
     const user = await authAPI.login(data)
-
+    dispatch(authentication(true))
+debugger
   }catch (e) {
     const error = e.response
         ? e.response.data.error

@@ -4,32 +4,28 @@ import Input from '../../components/input/Input';
 import Checkbox from '../../components/checkbox/Checkbox';
 import {Link, Redirect} from 'react-router-dom';
 import {PATH} from '../../main/ui/routes/Routes';
-import {authAPI} from '../../main/dal/API';
 import Spinner from '../../components/spinner/Spinner';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {login} from '../../main/bll/auth-actions';
+import {AuthStateType} from '../../main/bll/authReducer';
+import {RootStoreType} from '../../main/bll/store';
 
 const Login: FC<any> = () => {
   const dispatch = useDispatch()
-
+  const {isAuth,isLoading} = useSelector<RootStoreType,AuthStateType>(state => state.user)
   const [email, setEmail] = useState<string>('nya-admin@nya.nya')
   const [password, setPassword] = useState<string>('1qazxcvBG')
   const [validEmail, setValidEmail] = useState<boolean>(false)
   const [validPassword, setValidPassword] = useState<boolean>(false)
   const [checkedInput, setCheckedInput] = useState<boolean>(false)
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [isAuth, setIsAuth] = useState<boolean>(false)
 
   const setRememberMe = (checked: boolean) => {
     setCheckedInput(checked)
   }
-
-
   const changeEmail = ({target}: ChangeEvent<HTMLInputElement>) => {
     setValidEmail(false)
     setEmail(target.value)
   }
-
   const changePassword = (e: ChangeEvent<HTMLInputElement>) => {
     setValidPassword(false)
     setPassword(e.target.value)
@@ -46,15 +42,12 @@ const Login: FC<any> = () => {
 
   const onSubmit = () => {
     if (!validEmail && !validPassword) {
-      // setIsLoading(true)
       // диспатчим санку с запросом
       dispatch(login({email: email, password: password, rememberMe: checkedInput}))
       //если ты авторизован то редирект на главную страницу
-      setIsAuth(true)
     }
   }
   if (isAuth) {
-    // setIsLoading(true)
     return <Redirect to={PATH.PROFILE}/>
   }
   return (

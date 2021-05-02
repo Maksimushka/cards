@@ -52,7 +52,7 @@ export const authAPI = {
         return instanceLocal.get(`ping?frontTime=${Date.now()}`)
     },
     login(loginObj: AuthObjType) {
-        return instanceLocal.post<AuthMeResponseType>('auth/login', loginObj)
+        return instanceLocal.post<AuthMeResponseType>('auth/login', loginObj).then(res=>res.data)
     },
     logOut() {
         return instanceLocal.delete<AuthResponseType>(`auth/me`)
