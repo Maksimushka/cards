@@ -6,6 +6,7 @@ import Error404 from '../error-404/Error404';
 import TestPage from '../../../components/TestPage';
 import Login from '../../../features/login/Login';
 import SignUp from "../../../features/signUp/SignUp";
+import Header from '../header/Header';
 
 
 export const PATH = {
@@ -19,6 +20,7 @@ export const PATH = {
 function Routes() {
     return (
         <div>
+            <Header />
             <Switch>
                 <Route path={"/"} exact render={() => <Redirect to={PATH.PROFILE}/>}/>
 
