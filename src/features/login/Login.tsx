@@ -6,7 +6,7 @@ import {Link, Redirect} from 'react-router-dom';
 import {PATH} from '../../main/ui/routes/Routes';
 import Spinner from '../../components/spinner/Spinner';
 import {useDispatch, useSelector} from 'react-redux';
-import {login} from '../../main/bll/auth-actions';
+import {setLogin} from '../../main/bll/auth-actions';
 import {AuthStateType} from '../../main/bll/authReducer';
 import {RootStoreType} from '../../main/bll/store';
 
@@ -43,10 +43,10 @@ const Login: FC<any> = () => {
   const onSubmit = () => {
     if (!validEmail && !validPassword) {
       // диспатчим санку с запросом
-      dispatch(login({email: email, password: password, rememberMe: checkedInput}))
-      //если ты авторизован то редирект на главную страницу
+      dispatch(setLogin({email: email, password: password, rememberMe: checkedInput}))
     }
   }
+  // если ты авторизован то редирект на главную страницу
   if (isAuth) {
     return <Redirect to={PATH.PROFILE}/>
   }
@@ -69,7 +69,6 @@ const Login: FC<any> = () => {
               )}
           {validEmail && <p className="error">Enter valid email</p>}
           {validPassword && <p className="error">Enter longer password more then 6 symbols Now: {password.length}</p>}
-
         </div>
       </section>
   )

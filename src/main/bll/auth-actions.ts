@@ -1,60 +1,63 @@
-import { Dispatch } from "redux"
 import {authAPI, AuthObjType} from '../dal/API'
 import {ThunkType} from './store';
 
 // TYPES
 export enum AuthEnum {
-    LOGIN = 'AUTH/LOGIN',
-    LOGOUT = 'AUTH/LOGOUT',
-    UPDATE_USER = 'AUTH/UPDATE_USER',
-    IS_LOADING = 'AUTH/IS_LOADING',
-    IS_AUTH = 'AUTH/IS_AUTH',
+  LOGIN = 'AUTH/LOGIN',
+  LOGOUT = 'AUTH/LOGOUT',
+  UPDATE_USER = 'AUTH/UPDATE_USER',
+  IS_LOADING = 'AUTH/IS_LOADING',
+  IS_AUTH = 'AUTH/IS_AUTH',
 }
-export type AuthActionsTypes = ReturnType<typeof loginAC>
-    | ReturnType<typeof logOutAC>
-    | ReturnType<typeof updateUserAC>
+
+export type AuthActionsTypes = ReturnType<typeof login>
+    | ReturnType<typeof logOut>
+    | ReturnType<typeof updateUser>
     | ReturnType<typeof loadingSpinner>
     | ReturnType<typeof authentication>
 
 // ACTION CREATORS
-export const loginAC = (value: { name: string, _id: string, avatar?: string }) => ({
-    type: AuthEnum.LOGIN,
-    value
+export const login = (payload: { name: string, _id: string, avatar?: string }) => ({
+  type: AuthEnum.LOGIN,
+  payload
 } as const)
-export const logOutAC = () => ({ type: AuthEnum.LOGOUT } as const)
-export const updateUserAC = (value: {name?: string, avatar?: string}) => ({ type: AuthEnum.UPDATE_USER, value } as const)
-export const loadingSpinner = (value:boolean) => ({ type: AuthEnum.IS_LOADING,value} as const)
-export const authentication = (value:boolean) => ({ type: AuthEnum.IS_AUTH,value} as const)
+export const logOut = () => ({type: AuthEnum.LOGOUT} as const)
+export const updateUser = (payload: { name?: string, avatar?: string }) => ({
+  type: AuthEnum.UPDATE_USER,
+  payload
+} as const)
+export const loadingSpinner = (value: boolean) => ({type: AuthEnum.IS_LOADING, payload: {isLoading: value}} as const)
+export const authentication = (value: boolean) => ({type: AuthEnum.IS_AUTH, payload: {isAuth: value}} as const)
 
 // THUNK CREATORS
-export const setLogOut = ():ThunkType =>
+export const setLogOut = (): ThunkType =>
     async (dispatch) => {
-    try {
+      try {
         let resp = await authAPI.logOut()
         console.log(resp)
-        logOutAC()
-    } catch (e) {
+        dispatch(logOut())
+      } catch (e) {
         const error = e.response
             ? e.response.data.error
             : (e.message + ', more details in the console');
         alert(error)
+      }
     }
-}
-export const login = (data:AuthObjType):ThunkType =>
+export const setLogin = (data: AuthObjType): ThunkType =>
     async (dispatch) => {
-  try{
-    dispatch(loadingSpinner(true))
-    const user = await authAPI.login(data)
-    dispatch(authentication(true))
-debugger
-  }catch (e) {
-    const error = e.response
-        ? e.response.data.error
-        : (e.message + ', more details in the console');
-    alert(error)
-  }finally {
-    dispatch(loadingSpinner(false))
-  }
+      try {
+        dispatch(loadingSpinner(true))
+        const {name, avatar, _id} = await authAPI.login(data)
+        dispatch(login({name, avatar, _id}))
+        dispatch(authentication(true))
+      } catch (e) {
+        const error = e.response
+            ? e.response.data.error
+            : (e.message + ', more details in the console');
+        alert(error)
+      } finally {
+        dispatch(loadingSpinner(false))
+      }
     }
 
 
