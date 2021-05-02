@@ -59,5 +59,3 @@ export const setLogin = (data: AuthObjType): ThunkType =>
         dispatch(loadingSpinner(false))
       }
     }
-
-
