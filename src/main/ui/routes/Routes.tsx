@@ -7,6 +7,7 @@ import TestPage from '../../../components/TestPage';
 import Login from '../../../features/login/Login';
 import SignUp from "../../../features/signUp/SignUp";
 import Header from '../header/Header';
+import SetNewPassword from '../../../features/setNewPassword/SetNewPassword';
 
 
 export const PATH = {
@@ -14,7 +15,8 @@ export const PATH = {
     LOGIN: '/login',
     RECOVERY: '/recovery',
     SIGNUP: "/signUp",
-    TESTPAGE: '/testPage'
+    TESTPAGE: '/testPage',
+    SETNEWPASSWORD: '/SetNewPassword'
 }
 
 function Routes() {
@@ -29,6 +31,7 @@ function Routes() {
                 <Route path={PATH.SIGNUP} render={() => <SignUp />}/>
                 <Route path={PATH.RECOVERY} render={() => <RecoveryPass />}/>
                 <Route path={PATH.TESTPAGE} render={() => <TestPage />}/>
+                <Route path={PATH.SETNEWPASSWORD} render={() => <SetNewPassword />}/>
 
                 <Route render={() => <Error404 />}/>
             </Switch>
