@@ -4,8 +4,8 @@ const initialState = {
   name: null as string | null,
   _id: null as string | null,
   avatar: null as string | null,
-  isLoading: false,
-  isAuth: false,
+  isLoading: false, // крутилка
+  isAuth: false,   // зарегестрирован
 }
 
 export type AuthStateType = typeof initialState
@@ -21,6 +21,8 @@ export const authReducer = (state: AuthStateType = initialState, action: AuthAct
     case AuthEnum.IS_LOADING:
       return {...state, ...action.payload}
     case AuthEnum.IS_AUTH:
+      return {...state, ...action.payload}
+    case AuthEnum.IS_REGISTER:
       return {...state, ...action.payload}
     default:
       return state
