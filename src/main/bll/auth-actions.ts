@@ -1,4 +1,4 @@
-import {authAPI, AuthObjType} from '../dal/API'
+import {authAPI, AuthObjType, NewPasswordObjType} from '../dal/API'
 import {ThunkType} from './store';
 
 // TYPES
@@ -59,3 +59,31 @@ export const setLogin = (data: AuthObjType): ThunkType =>
         dispatch(loadingSpinner(false))
       }
     }
+export const setRecovery = (email: string): ThunkType => async (dispatch) => {
+    try {
+        dispatch(loadingSpinner(true))
+        const {info} = await authAPI.recovery(email)
+        alert(info)
+    } catch (e) {
+        const error = e.response
+            ? e.response.data.error
+            : (e.message + ', more details in the console');
+        alert(error)
+    } finally {
+        dispatch(loadingSpinner(false))
+    }
+}
+export const setNewPassword = (data: NewPasswordObjType): ThunkType => async (dispatch) => {
+    try {
+        dispatch(loadingSpinner(true))
+        const {info} = await authAPI.setNewPassword(data)
+        alert(info)
+    } catch (e) {
+        const error = e.response
+            ? e.response.data.error
+            : (e.message + ', more details in the console');
+        alert(error)
+    } finally {
+        dispatch(loadingSpinner(false))
+    }
+}
