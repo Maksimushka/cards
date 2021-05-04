@@ -16,7 +16,8 @@ const Header: React.FC = () => {
             <div className='headerBlock__navBar'>
                 {
                     navBarItems.map(el => {
-                        return <NavLink activeClassName='headerBlock__navBar-active' className='headerBlock__navBar-item' to={el.link}>{el.title}</NavLink>
+                        // добавил key, была ошибка
+                        return <NavLink key={el.link} activeClassName='headerBlock__navBar-active' className='headerBlock__navBar-item' to={el.link}>{el.title}</NavLink>
                     })
                 }
             </div>

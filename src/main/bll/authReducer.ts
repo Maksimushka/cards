@@ -4,8 +4,9 @@ const initialState = {
   name: null as string | null,
   _id: null as string | null,
   avatar: null as string | null,
-  isLoading: false, // крутилка
-  isAuth: false,   // зарегестрирован
+  isLoading: false,
+  isAuth: false,
+  isRegister: false
 }
 
 export type AuthStateType = typeof initialState

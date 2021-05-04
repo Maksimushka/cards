@@ -10,9 +10,8 @@ import {PATH} from "../../main/ui/routes/Routes";
 
 
 const SignUp = () => {
-    const isAuth = useSelector<RootStoreType, boolean>((state) => state.user.isAuth)
+    const isRegister = useSelector<RootStoreType, boolean>((state) => state.user.isRegister)
     const isLoading = useSelector<RootStoreType, boolean>((state) => state.user.isLoading)
-
     const dispatch = useDispatch()
 
     const [email, setEmail] = useState<string>("")
@@ -39,7 +38,7 @@ const SignUp = () => {
 
 
     const validateDate = () => {
-
+        // валидация формы
         if (!email) {
             return setErrorsEmail("Поле email не может быть пустым")
         } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
@@ -59,19 +58,14 @@ const SignUp = () => {
     }
 
     const setIsValid = () => {
-        // if (email && password && passwordConfirmation) {
-        //     dispatch(registerTC({email, password}))
-        // }
-        if (isAuth) {
-            return <Redirect to={PATH.PROFILE}/>
+        if (email && password && passwordConfirmation) {
+            dispatch(registerTC({email, password}))
         }
     }
-
-
-    const setSignIn = () => {
-        return <Redirect to={PATH.LOGIN}/>
+    // если зарегестрирован Redirect на Profile
+    if (isRegister) {
+        return <Redirect to={PATH.PROFILE}/>
     }
-
 
     return (
         <>
@@ -114,11 +108,9 @@ const SignUp = () => {
                             onClick={setIsValid}
                             onMouseDown={validateDate}
                     > register </button>
-
-                    <button className='wrapper_btn_signIn btn' onClick={setSignIn}>Sign In</button>
+                    <a href="http://localhost:3000/#/login" className='wrapper_btn_signIn btn'>Sign In</a>
                 </div>}
         </>
-
     );
 };
 
