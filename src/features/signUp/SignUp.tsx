@@ -107,7 +107,8 @@ const SignUp = () => {
                     <button className='wrapper_btn_register btn'
                             onClick={setIsValid}
                             onMouseDown={validateDate}
-                    > register </button>
+                    > register
+                    </button>
                     <a href="http://localhost:3000/#/login" className='wrapper_btn_signIn btn'>Sign In</a>
                 </div>}
         </>

@@ -29,7 +29,10 @@ export const updateUser = (payload: { name?: string, avatar?: string }) => ({
     type: AuthEnum.UPDATE_USER,
     payload
 } as const)
-export const registerAC = (name: string,_id: string,isRegister: boolean) => ({type: AuthEnum.IS_REGISTER,payload: {name,_id,isRegister}} as const)
+export const registerAC = (name: string, _id: string, isRegister: boolean) => ({
+    type: AuthEnum.IS_REGISTER,
+    payload: {name, _id, isRegister}
+} as const)
 export const loadingSpinner = (value: boolean) => ({type: AuthEnum.IS_LOADING, payload: {isLoading: value}} as const)
 export const authentication = (value: boolean) => ({type: AuthEnum.IS_AUTH, payload: {isAuth: value}} as const)
 
@@ -63,18 +66,18 @@ export const setLogin = (data: AuthObjType): ThunkType =>
             dispatch(loadingSpinner(false))
         }
     }
-export const registerTC = (data: AuthObjType) => (dispatch: Dispatch) => {
-    dispatch(loadingSpinner(true))
-    authAPI.signUp(data)
-        .then((res) => {
-            const {name,_id } = res.data.addedUser
-            dispatch(registerAC(name, _id,true))
+export const registerTC = (data: AuthObjType): ThunkType =>
+    async dispatch => {
+        dispatch(loadingSpinner(true))
+        try {
+            const res = await authAPI.signUp(data)
+            const {name, _id} = res.data.addedUser
+            dispatch(registerAC(name, _id, true))
             dispatch(authentication(true))
-        })
-        .catch((error) => {
-            alert(error.response.data.error)
-        })
-        .finally(()=> {
+        } catch (e) {
+            alert(e.response.data.error)
+        } finally {
             dispatch(loadingSpinner(false))
-        })
-}
+        }
+    }
+
