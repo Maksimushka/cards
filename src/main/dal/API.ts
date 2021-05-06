@@ -17,14 +17,10 @@ type UpdateMeObjType = {
     name: string
     avatar: string
 }
-type NewPasswordObjType = {
+export type NewPasswordObjType = {
     password: string
     resetPasswordToken: string
 }
-// type RecoveryObjType = {
-//     email: "nya@nya.nya"
-//     from: "test-front-admin <m.billsrc@gmail.com>", // можно указать разработчика фронта)
-// }
 
 type AuthMeResponseType = {
     _id: string
@@ -66,10 +62,16 @@ export const authAPI = {
     updateMe(updateMeObj: UpdateMeObjType) {
         return instanceLocal.put<{ updatedUser: AuthMeResponseType, error?: string }>('auth/me', updateMeObj)
     },
-    // recovery(recoveryObj: ) {
-    //     return instanceHeroku.put('auth/forgot', updateMeObj)
-    // },
+    recovery(email: string) {
+        return instanceHeroku.put<AuthResponseType>('auth/forgot', {
+            email,
+            from: "test-front-admin <ai73a@yandex.by>",
+            message: `<div style="background-color: lime; padding: 15px"
+	                <a href='https://maksimushka.github.io/cards/#/set-new-password/$token$'>link</a>
+	            </div>`
+        }).then(res=>res.data)
+    },
     setNewPassword(newPasswordObj: NewPasswordObjType) {
-        return instanceLocal.post<AuthResponseType>('auth/set-new-password', newPasswordObj)
+        return instanceHeroku.post<AuthResponseType>('auth/set-new-password', newPasswordObj).then(res=>res.data)
     }
 }
