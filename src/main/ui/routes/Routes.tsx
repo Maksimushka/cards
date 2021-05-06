@@ -31,7 +31,7 @@ function Routes() {
                 <Route path={PATH.SIGNUP} render={() => <SignUp />}/>
                 <Route path={PATH.RECOVERY} render={() => <RecoveryPass />}/>
                 <Route path={PATH.TESTPAGE} render={() => <TestPage />}/>
-                <Route path={PATH.SETNEWPASSWORD} render={() => <SetNewPassword />}/>
+                <Route path={`${PATH.SETNEWPASSWORD}/:token`} render={() => <SetNewPassword />}/>
 
                 <Route render={() => <Error404 />}/>
             </Switch>
