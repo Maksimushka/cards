@@ -4,16 +4,19 @@ import './RecoveryPass.scss'
 import Button from '../../components/button/Button';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
+import {useDispatch} from 'react-redux';
+import {setRecovery} from '../../main/bll/auth-actions';
 
 const RecoveryPass = () => {
 
     const [triedToSubmit, setTriedToSubmit] = useState(false)
+    const dispatch = useDispatch()
 
     const formik = useFormik({
         initialValues: { email: '' },
         validationSchema: Yup.object({ email: Yup.string().email('Invalid email').required('Required') }),
         onSubmit: values => {
-            alert(JSON.stringify(values))
+            dispatch(setRecovery(values.email))
             formik.resetForm()
         }
     })

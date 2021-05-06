@@ -4,10 +4,15 @@ import Input from '../../components/input/Input';
 import Button from '../../components/button/Button';
 import {useFormik} from 'formik';
 import * as Yup from 'yup'
+import {useDispatch} from 'react-redux';
+import {setNewPassword} from '../../main/bll/auth-actions';
+import { useParams } from 'react-router-dom';
 
 const SetNewPassword = () => {
 
     const [triedToSubmit, setTriedToSubmit] = useState(false)
+    const dispatch = useDispatch()
+    const {token} = useParams<{token: string}>();
 
     const formik = useFormik({
         initialValues: {
@@ -15,11 +20,12 @@ const SetNewPassword = () => {
             confirmPass: ''
         },
         validationSchema: Yup.object({
-            password: Yup.string().min(6, 'Password must be 6 characters or more').required('Required'),
+            password: Yup.string().min(8, 'Password must be 8 characters or more').required('Required'),
             confirmPass: Yup.string().oneOf([Yup.ref("password")], "Passwords must match").required('Required')
         }),
         onSubmit: values => {
-            alert(JSON.stringify(values))
+            const newPass = {password: values.password, resetPasswordToken: token}
+            dispatch(setNewPassword(newPass))
             formik.resetForm()
         }
     })
