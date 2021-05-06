@@ -6,6 +6,7 @@ const initialState = {
   avatar: null as string | null,
   isLoading: false,
   isAuth: false,
+  isRegister: false
 }
 
 export type AuthStateType = typeof initialState
@@ -21,6 +22,8 @@ export const authReducer = (state: AuthStateType = initialState, action: AuthAct
     case AuthEnum.IS_LOADING:
       return {...state, ...action.payload}
     case AuthEnum.IS_AUTH:
+      return {...state, ...action.payload}
+    case AuthEnum.IS_REGISTER:
       return {...state, ...action.payload}
     default:
       return state

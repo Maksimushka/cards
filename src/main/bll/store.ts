@@ -15,3 +15,9 @@ export const store = createStore(rootReducer, composeEnhancers((applyMiddleware(
 export type RootStoreType =ReturnType<typeof rootReducer>
 // типизация санки
 export type ThunkType = ThunkAction<void, RootStoreType, unknown, AuthActionsTypes>
+
+
+
+// radux-devtuls
+// react-developerTuls
+

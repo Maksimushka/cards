@@ -1,6 +1,7 @@
 * {
   box-shadow: none;
-  border: none;
+  /* невиден в инпуте border */
+  /*border: none;*/
   outline: none;
   text-decoration: none;
 }
