@@ -45,25 +45,25 @@ type AuthResponseType = {
 
 export const authAPI = {
     ping() {
-        return instanceLocal.get(`ping?frontTime=${Date.now()}`)
+        return instanceHeroku.get(`ping?frontTime=${Date.now()}`)
     },
     login(loginObj: AuthObjType) {
-        return instanceLocal.post<AuthMeResponseType>('auth/login', loginObj).then(res=>res.data)
+        return instanceHeroku.post<AuthMeResponseType>('auth/login', loginObj).then(res=>res.data)
     },
     logOut() {
-        return instanceLocal.delete<AuthResponseType>(`auth/me`)
+        return instanceHeroku.delete<AuthResponseType>(`auth/me`)
     },
     signUp(singUpObj: AuthObjType) {
-        return instanceLocal.post<{error?: string, addedUser: any}>('auth/register', singUpObj)
+        return instanceHeroku.post<{error?: string, addedUser: any}>('auth/register', singUpObj)
     },
     me() {
-        return instanceLocal.post<AuthMeResponseType>('auth/me')
+        return instanceHeroku.post<AuthMeResponseType>('auth/me')
     },
     updateMe(updateMeObj: UpdateMeObjType) {
-        return instanceLocal.put<{ updatedUser: AuthMeResponseType, error?: string }>('auth/me', updateMeObj)
+        return instanceHeroku.put<{ updatedUser: AuthMeResponseType, error?: string }>('auth/me', updateMeObj)
     },
     recovery(email: string) {
-        return instanceHeroku.put<AuthResponseType>('auth/forgot', {
+        return instanceHeroku.post<AuthResponseType>('auth/forgot', {
             email,
             from: "test-front-admin <ai73a@yandex.by>",
             message: `<div style="background-color: lime; padding: 15px"
