@@ -66,8 +66,9 @@ export const authAPI = {
         return instanceHeroku.post<AuthResponseType>('auth/forgot', {
             email,
             from: "test-front-admin <ai73a@yandex.by>",
-            message: `<div style="background-color: lime; padding: 15px"
-	                <a href='https://maksimushka.github.io/cards/#/set-new-password/$token$'>link</a>
+            message: `<div style="background-color: lime; padding: 15px">
+                        password recovery link:
+	                <a href='https://maksimushka.github.io/cards/#/SetNewPassword/$token$'>link</a>
 	            </div>`
         }).then(res=>res.data)
     },
