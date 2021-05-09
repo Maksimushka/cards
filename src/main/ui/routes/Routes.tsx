@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Redirect, Route } from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import Profile from '../../../features/profile/Profile';
 import RecoveryPass from '../../../features/recoveryPass/RecoveryPass';
 import Error404 from '../error-404/Error404';
@@ -7,7 +7,7 @@ import TestPage from '../../../components/TestPage';
 import Login from '../../../features/login/Login';
 import SignUp from "../../../features/signUp/SignUp";
 import Header from '../header/Header';
-import SetNewPassword from '../../../features/setNewPassword/SetNewPassword';
+import {Packs} from "../../../features/packs/packs";
 
 
 export const PATH = {
@@ -16,7 +16,8 @@ export const PATH = {
     RECOVERY: '/recovery',
     SIGNUP: "/signUp",
     TESTPAGE: '/testPage',
-    SETNEWPASSWORD: '/SetNewPassword'
+    SETNEWPASSWORD: '/SetNewPassword',
+    PACKS: '/packs'
 }
 
 function Routes() {
@@ -31,7 +32,7 @@ function Routes() {
                 <Route path={PATH.SIGNUP} render={() => <SignUp />}/>
                 <Route path={PATH.RECOVERY} render={() => <RecoveryPass />}/>
                 <Route path={PATH.TESTPAGE} render={() => <TestPage />}/>
-                <Route path={PATH.SETNEWPASSWORD} render={() => <SetNewPassword />}/>
+                <Route path={PATH.PACKS} render={() => <Packs />}/>
 
                 <Route render={() => <Error404 />}/>
             </Switch>

@@ -18,7 +18,7 @@ const Profile = () => {
         if (!isAuth) {
             dispatch(setMeTC())
         }
-    }, [isAuth, dispatch])
+    }, [])
 
     const isAuthLogUot = () => {
         dispatch(setLogOut())
