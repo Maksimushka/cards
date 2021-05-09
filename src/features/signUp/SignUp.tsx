@@ -62,7 +62,7 @@ const SignUp = () => {
             dispatch(registerTC({email, password}))
         }
     }
-    // если зарегестрирован Redirect на Profile
+    // если зарегистрирован Redirect на Profile
     if (isRegister) {
         return <Redirect to={PATH.PROFILE}/>
     }
