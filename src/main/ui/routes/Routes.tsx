@@ -26,14 +26,13 @@ function Routes() {
             <Header />
             <Switch>
                 <Route path={"/"} exact render={() => <Redirect to={PATH.PROFILE}/>}/>
-
                 <Route path={PATH.PROFILE} render={() => <Profile />}/>
                 <Route path={PATH.LOGIN} render={() => <Login />}/>
                 <Route path={PATH.SIGNUP} render={() => <SignUp />}/>
                 <Route path={PATH.RECOVERY} render={() => <RecoveryPass />}/>
                 <Route path={PATH.TESTPAGE} render={() => <TestPage />}/>
                 <Route path={PATH.PACKS} render={() => <Packs />}/>
-
+                <Route path={`${PATH.SETNEWPASSWORD}/:token`} render={() => <SetNewPassword />}/>
                 <Route render={() => <Error404 />}/>
             </Switch>
         </div>
