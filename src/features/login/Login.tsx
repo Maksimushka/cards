@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, useState} from 'react';
+import React, {ChangeEvent, FC, useEffect, useState} from 'react';
 import './Login.scss'
 import Input from '../../components/input/Input';
 import Checkbox from '../../components/checkbox/Checkbox';
@@ -10,7 +10,7 @@ import {setLogin} from '../../main/bll/auth-actions';
 import {AuthStateType} from '../../main/bll/authReducer';
 import {RootStoreType} from '../../main/bll/store';
 
-const Login: FC<any> = () => {
+const Login = () => {
   const dispatch = useDispatch()
   const {isAuth,isLoading} = useSelector<RootStoreType,AuthStateType>(state => state.user)
   const [email, setEmail] = useState<string>('nya-admin@nya.nya')
@@ -42,11 +42,10 @@ const Login: FC<any> = () => {
 
   const onSubmit = () => {
     if (!validEmail && !validPassword) {
-      // диспатчим санку с запросом
       dispatch(setLogin({email: email, password: password, rememberMe: checkedInput}))
     }
   }
-  // если ты авторизован то редирект на главную страницу
+
   if (isAuth) {
     return <Redirect to={PATH.PROFILE}/>
   }

@@ -18,6 +18,4 @@ export type ThunkType = ThunkAction<void, RootStoreType, unknown, AuthActionsTyp
 
 
 
-// radux-devtuls
-// react-developerTuls
 
