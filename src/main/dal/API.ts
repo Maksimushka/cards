@@ -2,10 +2,12 @@ import axios from "axios"
 
 const instanceLocal = axios.create({
     baseURL: 'http://localhost:7542/2.0/',
+    withCredentials: true
 })
 
 const instanceHeroku = axios.create({
     baseURL: 'https://neko-back.herokuapp.com/2.0',
+    withCredentials: true
 })
 
 export type AuthObjType = {
@@ -22,7 +24,7 @@ export type NewPasswordObjType = {
     resetPasswordToken: string
 }
 
-type AuthMeResponseType = {
+export type AuthMeResponseType = {
     _id: string
     email: string
     name: string
