@@ -39,7 +39,7 @@ const Input: React.FC<SuperInputTextPropsType> = (
   return (
       <>
         <input
-            type={type} // изменил на type был просто текст
+            type={type}
             onChange={onChangeCallback}
             onKeyPress={onKeyPressCallback}
             className={finalInputClassName}

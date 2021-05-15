@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import './Login.scss'
 import Input from '../../components/input/Input';
 import Checkbox from '../../components/checkbox/Checkbox';
@@ -6,12 +6,17 @@ import {Link, Redirect} from 'react-router-dom';
 import {PATH} from '../../main/ui/routes/Routes';
 import Spinner from '../../components/spinner/Spinner';
 import {useDispatch, useSelector} from 'react-redux';
-import {setLogin} from '../../main/bll/auth-actions';
+import {setLogin, setMeTC} from '../../main/bll/auth-actions';
 import {AuthStateType} from '../../main/bll/authReducer';
 import {RootStoreType} from '../../main/bll/store';
 
 const Login = () => {
   const dispatch = useDispatch()
+
+  useEffect(()=>{
+    dispatch(setMeTC())
+  },[dispatch])
+
   const {isAuth,isLoading} = useSelector<RootStoreType,AuthStateType>(state => state.user)
   const [email, setEmail] = useState<string>('nya-admin@nya.nya')
   const [password, setPassword] = useState<string>('1qazxcvBG')

@@ -5,26 +5,22 @@ import {RootStoreType} from "../../main/bll/store";
 import {setLogOut, setMeTC} from "../../main/bll/auth-actions";
 import {Redirect} from "react-router-dom";
 import {PATH} from "../../main/ui/routes/Routes";
+import {AuthStateType} from '../../main/bll/authReducer';
 
 
 const Profile = () => {
     const dispatch = useDispatch()
-    const isAuth = useSelector<RootStoreType, boolean>((state) => state.user.isAuth)
-    const error = useSelector<RootStoreType, string | null>((state) => state.user.error)
-    const avatar = useSelector<RootStoreType, string | null>((state) => state.user.avatar)
-    const name = useSelector<RootStoreType, string | null>((state) => state.user.name)
+    const {isAuth, avatar, name} = useSelector<RootStoreType, AuthStateType>((state) => state.user)
 
     useEffect(() => {
-        if (!isAuth) {
-            dispatch(setMeTC())
-        }
-    }, [])
+      dispatch(setMeTC())
+    }, [dispatch,isAuth])
 
     const isAuthLogUot = () => {
         dispatch(setLogOut())
     }
 
-    if (error) {
+    if (!isAuth ) {
         return <Redirect to={PATH.LOGIN}/>
     }
 

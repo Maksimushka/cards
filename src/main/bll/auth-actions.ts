@@ -43,8 +43,7 @@ export const errorAC = (error: string) => ({type: AuthEnum.ERROR, payload: {erro
 export const setLogOut = (): ThunkType =>
     async (dispatch) => {
         try {
-            let resp = await authAPI.logOut()
-            console.log(resp)
+            await authAPI.logOut()
             dispatch(logOut())
         } catch (e) {
             const error = e.response

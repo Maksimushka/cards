@@ -1,12 +1,11 @@
 import axios from "axios"
 
-const instanceLocal = axios.create({
-    baseURL: 'http://localhost:7542/2.0/',
-    withCredentials: true
-})
+const HEROKU_URL = 'https://neko-back.herokuapp.com/2.0';
+const LOCAL_URL = 'http://localhost:7542/2.0/';
+const baseURL = LOCAL_URL;
 
-const instanceHeroku = axios.create({
-    baseURL: 'https://neko-back.herokuapp.com/2.0',
+const instance = axios.create({
+    baseURL,
     withCredentials: true
 })
 
@@ -29,14 +28,12 @@ export type AuthMeResponseType = {
     email: string
     name: string
     avatar?: string
-
     publicCardPacksCount: number
     created: Date
     updated: Date
     isAdmin: boolean
     verified: boolean
     rememberMe: boolean
-
     error?: string;
 }
 
@@ -47,25 +44,25 @@ type AuthResponseType = {
 
 export const authAPI = {
     ping() {
-        return instanceHeroku.get(`ping?frontTime=${Date.now()}`)
+        return instance.get(`ping?frontTime=${Date.now()}`)
     },
     login(loginObj: AuthObjType) {
-        return instanceHeroku.post<AuthMeResponseType>('auth/login', loginObj).then(res=>res.data)
+        return instance.post<AuthMeResponseType>('auth/login', loginObj).then(res=>res.data)
     },
     logOut() {
-        return instanceHeroku.delete<AuthResponseType>(`auth/me`)
+        return instance.delete<AuthResponseType>(`auth/me`)
     },
     signUp(singUpObj: AuthObjType) {
-        return instanceHeroku.post<{error?: string, addedUser: any}>('auth/register', singUpObj)
+        return instance.post<{error?: string, addedUser: any}>('auth/register', singUpObj)
     },
     me() {
-        return instanceHeroku.post<AuthMeResponseType>('auth/me')
+        return instance.post<AuthMeResponseType>('auth/me')
     },
     updateMe(updateMeObj: UpdateMeObjType) {
-        return instanceHeroku.put<{ updatedUser: AuthMeResponseType, error?: string }>('auth/me', updateMeObj)
+        return instance.put<{ updatedUser: AuthMeResponseType, error?: string }>('auth/me', updateMeObj)
     },
     recovery(email: string) {
-        return instanceHeroku.post<AuthResponseType>('auth/forgot', {
+        return instance.post<AuthResponseType>('auth/forgot', {
             email,
             from: "test-front-admin <ai73a@yandex.by>",
             message: `<div style="background-color: lime; padding: 15px">
@@ -75,6 +72,6 @@ export const authAPI = {
         }).then(res=>res.data)
     },
     setNewPassword(newPasswordObj: NewPasswordObjType) {
-        return instanceHeroku.post<AuthResponseType>('auth/set-new-password', newPasswordObj).then(res=>res.data)
+        return instance.post<AuthResponseType>('auth/set-new-password', newPasswordObj).then(res=>res.data)
     }
 }

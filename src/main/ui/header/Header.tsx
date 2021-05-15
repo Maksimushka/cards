@@ -1,26 +1,29 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { PATH } from '../routes/Routes';
+import {NavLink} from 'react-router-dom';
+import {PATH} from '../routes/Routes';
 import './Header.scss'
+import {useDispatch} from 'react-redux';
+import {setLogOut} from '../../bll/auth-actions';
 
-const Header: React.FC = () => {
+const Header = () => {
+  const dispatch = useDispatch()
     const navBarItems = [
         {title: 'Profile', link: PATH.PROFILE},
-        {title: 'Login', link: PATH.LOGIN},
-        {title: 'SignUp', link: PATH.SIGNUP},
-        {title: 'TestPage', link: PATH.TESTPAGE},
+        {title: 'TestPage', link: PATH.TEST_PAGE},
         {title: 'Recovery', link: PATH.RECOVERY},
-        {title: 'Packs', link: PATH.PACKS}
+        {title: 'Packs', link: PATH.PACKS},
+        // {title: 'Sign up', link: PATH.SIGNUP},
+        // {title: 'Login', link: PATH.LOGIN},
     ]
     return (
         <div className='headerBlock'>
             <div className='headerBlock__navBar'>
                 {
                     navBarItems.map(el => {
-                        // добавил key, была ошибка
                         return <NavLink key={el.link} activeClassName='headerBlock__navBar-active' className='headerBlock__navBar-item' to={el.link}>{el.title}</NavLink>
                     })
                 }
+              <NavLink to={PATH.LOGIN} className='headerBlock__navBar-item' onClick={()=>dispatch(setLogOut())}>Log out</NavLink>
             </div>
         </div>
     );

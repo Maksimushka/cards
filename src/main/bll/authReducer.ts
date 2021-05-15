@@ -15,9 +15,9 @@ export type AuthStateType = typeof initialState
 export const authReducer = (state: AuthStateType = initialState, action: AuthActionsTypes): AuthStateType => {
   switch (action.type) {
     case AuthEnum.LOGIN:
-      return {...state, ...action.payload}
+      return {...state, ...action.payload, isAuth: true}
     case AuthEnum.LOGOUT:
-      return {...state, name: null, _id: null, avatar: null, error: "logged out",isAuth: false}
+      return {...state, name: null, _id: null, avatar: null, error: 'logged out', isAuth: false, isRegister: false}
     case AuthEnum.UPDATE_USER:
       return {...state, ...action.payload}
     case AuthEnum.IS_LOADING:
