@@ -2,10 +2,10 @@ import React, {useEffect} from 'react';
 import './profile.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {RootStoreType} from "../../main/bll/store";
-import {setLogOut, setMeTC} from "../../main/bll/auth-actions";
+import {setLogOut, setMeTC} from "../../main/bll/auth/auth-actions";
 import {Redirect} from "react-router-dom";
 import {PATH} from "../../main/ui/routes/Routes";
-import {AuthStateType} from '../../main/bll/authReducer';
+import {AuthStateType} from '../../main/bll/auth/authReducer';
 
 
 const Profile = () => {

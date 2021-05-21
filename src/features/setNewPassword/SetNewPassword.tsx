@@ -5,7 +5,7 @@ import Button from '../../components/button/Button';
 import {useFormik} from 'formik';
 import * as Yup from 'yup'
 import {useDispatch} from 'react-redux';
-import {setNewPassword} from '../../main/bll/auth-actions';
+import {setNewPassword} from '../../main/bll/auth/auth-actions';
 import { useParams } from 'react-router-dom';
 
 const SetNewPassword = () => {

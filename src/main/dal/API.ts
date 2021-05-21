@@ -1,4 +1,5 @@
 import axios from "axios"
+import {ParamsType} from '../bll/decks/decks-types';
 
 const HEROKU_URL = 'https://neko-back.herokuapp.com/2.0';
 const LOCAL_URL = 'http://localhost:7542/2.0/';
@@ -42,6 +43,14 @@ type AuthResponseType = {
     error?: string
 }
 
+type cardsResponseType = {
+    cardPacksTotalCount: 14 // количество колод
+    maxCardsCount: 4
+    minCardsCount: 0
+    page: 1 // выбранная страница
+    pageCount: 4 // количество элементов на странице
+}
+
 export const authAPI = {
     ping() {
         return instance.get(`ping?frontTime=${Date.now()}`)
@@ -74,4 +83,10 @@ export const authAPI = {
     setNewPassword(newPasswordObj: NewPasswordObjType) {
         return instance.post<AuthResponseType>('auth/set-new-password', newPasswordObj).then(res=>res.data)
     }
+}
+
+export const cardsAPI = {
+    getDecks(params: ParamsType) {
+        return instance.get('cards/pack', {params: {...params}})
+    },
 }

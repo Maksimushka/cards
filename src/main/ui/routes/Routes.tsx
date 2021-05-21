@@ -11,7 +11,8 @@ import {Packs} from '../../../features/packs/packs';
 import SetNewPassword from '../../../features/setNewPassword/SetNewPassword';
 import {useSelector} from 'react-redux';
 import {RootStoreType} from '../../bll/store';
-import {AuthStateType} from '../../bll/authReducer';
+import {AuthStateType} from '../../bll/auth/authReducer';
+import {Search} from '../../../features/search/Search';
 
 
 export const PATH = {
@@ -21,7 +22,8 @@ export const PATH = {
   SIGNUP: '/signUp',
   TEST_PAGE: '/testPage',
   SET_NEW_PASSWORD: '/SetNewPassword',
-  PACKS: '/packs'
+  PACKS: '/packs',
+  SEARCH: '/search'
 }
 
 const Routes = () => {
@@ -38,6 +40,7 @@ const Routes = () => {
           <Route path={PATH.TEST_PAGE} render={() => <TestPage/>}/>
           <Route path={PATH.RECOVERY} render={() => <RecoveryPass/>}/>
           <Route path={`${PATH.SET_NEW_PASSWORD}/:token`} render={() => <SetNewPassword/>}/>
+          <Route path={PATH.SEARCH} render={() => <Search/>}/>
           <Route render={() => <Error404/>}/>
         </Switch>
       </div>
