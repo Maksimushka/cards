@@ -1,8 +1,9 @@
 import {applyMiddleware, combineReducers, compose, createStore} from 'redux';
 import thunkMiddleware, {ThunkAction} from 'redux-thunk';
-import {authReducer} from './authReducer'
-import {AuthActionsTypes} from './auth-actions';
-import {decksReducer} from "./decks-reducer";
+import {authReducer} from './auth/authReducer'
+import {AuthActionsTypes} from './auth/auth-actions';
+import {decksReducer} from "./decks/decks-reducer";
+import {DecksActionType} from './decks/decks-action';
 
 const rootReducer = combineReducers({
   user: authReducer,
@@ -17,6 +18,8 @@ export const store = createStore(rootReducer, composeEnhancers((applyMiddleware(
 export type RootStoreType =ReturnType<typeof rootReducer>
 // типизация санки
 export type ThunkType = ThunkAction<void, RootStoreType, unknown, AuthActionsTypes>
+
+export type DecksThunkType = ThunkAction<void, RootStoreType, unknown, DecksActionType>
 
 
 

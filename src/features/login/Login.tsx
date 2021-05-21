@@ -6,8 +6,8 @@ import {Link, Redirect} from 'react-router-dom';
 import {PATH} from '../../main/ui/routes/Routes';
 import Spinner from '../../components/spinner/Spinner';
 import {useDispatch, useSelector} from 'react-redux';
-import {setLogin, setMeTC} from '../../main/bll/auth-actions';
-import {AuthStateType} from '../../main/bll/authReducer';
+import {setLogin, setMeTC} from '../../main/bll/auth/auth-actions';
+import {AuthStateType} from '../../main/bll/auth/authReducer';
 import {RootStoreType} from '../../main/bll/store';
 
 const Login = () => {
@@ -18,8 +18,8 @@ const Login = () => {
   },[dispatch])
 
   const {isAuth,isLoading} = useSelector<RootStoreType,AuthStateType>(state => state.user)
-  const [email, setEmail] = useState<string>('nya-admin@nya.nya')
-  const [password, setPassword] = useState<string>('1qazxcvBG')
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
   const [validEmail, setValidEmail] = useState<boolean>(false)
   const [validPassword, setValidPassword] = useState<boolean>(false)
   const [checkedInput, setCheckedInput] = useState<boolean>(false)

@@ -1,5 +1,5 @@
-import {authAPI, AuthObjType, NewPasswordObjType} from '../dal/API'
-import {ThunkType} from './store';
+import {authAPI, AuthObjType, NewPasswordObjType} from '../../dal/API'
+import {ThunkType} from '../store';
 
 // TYPES
 export enum AuthEnum {
@@ -110,17 +110,17 @@ export const setNewPassword = (data: NewPasswordObjType): ThunkType => async (di
         dispatch(loadingSpinner(false))
     }
 }
-export const setMeTC = (): ThunkType => (dispatch) => {
-    dispatch(loadingSpinner(true))
-    authAPI.me()
-        .then((res) => {
-            dispatch(login(res.data))
-        })
-        .catch((e) => {
-            dispatch(errorAC(e.response.data.error))
-        })
-        .finally(() => {
-            dispatch(loadingSpinner(false))
-        })
-
+export const setMeTC = (): ThunkType => async (dispatch) => {
+    try {
+        dispatch(loadingSpinner(true))
+        const res = await authAPI.me()
+        dispatch(login(res.data))
+    } catch (e) {
+        const error = e.response
+            ? e.response.data.error
+            : (e.message + ', more details in the console');
+        alert(error)
+    } finally {
+        dispatch(loadingSpinner(false))
+    }
 }
